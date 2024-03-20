@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:films_app/provider/page_view.dart';
 
-import '../screens/page_view_details_screen.dart';
+import '../screens/movies_details_screen.dart';
 
 class PageViewWidget extends StatefulWidget {
   const PageViewWidget({Key? key}) : super(key: key);

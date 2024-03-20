@@ -2,10 +2,21 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../provider/page_view_details.dart';
+import '../provider/movie_details.dart';
 
 class StackDetaills extends StatelessWidget {
   const StackDetaills({super.key});
+  Color getRateBackgroundColor(double rate) {
+    if (rate < 5.0) {
+      return Colors.red;
+    } else if (rate < 6.8) {
+      return Colors.purple;
+    } else if (rate < 7.3) {
+      return Colors.blue;
+    } else {
+      return Colors.green;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,8 +109,10 @@ class StackDetaills extends StatelessWidget {
                             width: 35,
                             height: 25,
                             decoration: BoxDecoration(
-                                color: Colors.blue,
-                                borderRadius: BorderRadius.circular(7)),
+                              color: getRateBackgroundColor(
+                                  movieDetails.voteAverage ?? 0.0),
+                              borderRadius: BorderRadius.circular(7),
+                            ),
                             child: Padding(
                               padding: const EdgeInsets.all(2.0),
                               child: Center(

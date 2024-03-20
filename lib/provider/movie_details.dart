@@ -6,14 +6,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../models/page_view_model.dart';
+import '../models/movies_model.dart';
 
 class PageViewDetailsProvider extends ChangeNotifier {
   late Results _movieDetails = Results();
   late List<Map<String, dynamic>> _genres = [];
-
-  Results get movieDetails => _movieDetails;
   List<Map<String, dynamic>> get genres => _genres;
+  Results get movieDetails => _movieDetails;
 
   Future<void> fetchMovieDetails(int movieId) async {
     try {
@@ -24,7 +23,7 @@ class PageViewDetailsProvider extends ChangeNotifier {
               'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlYTMwMWNmOGMyNTI4ZGUwYjViNDU3NGYzMmZjNjY1YSIsInN1YiI6IjVmMDQzOGQ0OGEwZTliMDAzNjlhMjg0ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UZ-QUPkO4P_79XS3p2p5Rfmfr9vWD63_1kcvR6wTf_I',
         },
       );
-      print(response.body);
+      // print(response.body);
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseBody = json.decode(response.body);
         _movieDetails = Results.fromJson(responseBody);

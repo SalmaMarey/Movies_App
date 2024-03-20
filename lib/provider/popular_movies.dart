@@ -8,14 +8,14 @@ import 'package:http/http.dart' as http;
 
 import '../models/movies_model.dart';
 
-class PageViewProvider extends ChangeNotifier {
+class PopularMoviesProvider extends ChangeNotifier {
   List<Results> _views = [];
   List<Results> get views => _views;
 
-  Future<void> fetchViews() async {
+  Future<void> fetchPopularMovies() async {
     try {
       final response = await http.get(
-        Uri.parse('https://api.themoviedb.org/3/movie/upcoming'),
+        Uri.parse('https://api.themoviedb.org/3/movie/popular'),
         headers: {
           HttpHeaders.authorizationHeader:
               'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlYTMwMWNmOGMyNTI4ZGUwYjViNDU3NGYzMmZjNjY1YSIsInN1YiI6IjVmMDQzOGQ0OGEwZTliMDAzNjlhMjg0ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UZ-QUPkO4P_79XS3p2p5Rfmfr9vWD63_1kcvR6wTf_I',

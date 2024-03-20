@@ -1,6 +1,8 @@
+import 'package:films_app/widgets/popular_movies.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/page_view.dart';
+import '../widgets/top_rated_movies.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -33,13 +35,28 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             PageViewWidget(),
             Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: EdgeInsets.only(top: 8.0, left: 8, right: 8),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Top Rated Movies',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
+                  TopRatedMovies(),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 8.0, left: 8, right: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Trending Movies',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  PopularMovies(),
                 ],
               ),
             )

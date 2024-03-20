@@ -40,6 +40,7 @@ dependencies:
   provider: ^6.1.2
   http: ^1.1.0
   path_provider: ^2.1.2
+  flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
   flutter_test:
@@ -60,6 +61,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/videos/
+    - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
