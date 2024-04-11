@@ -87,7 +87,9 @@ class _PageViewWidgetState extends State<PageViewWidget> {
                       ClipRRect(
                         // borderRadius: BorderRadius.circular(15),
                         child: CachedNetworkImage(
-                          imageUrl: getImagePath(film.posterPath!),
+                          imageUrl: (film.posterPath != null)
+                              ? getImagePath(film.posterPath!)
+                              : "https://cdn-icons-png.flaticon.com/512/15393/15393096.png",
                           height: 250,
                           width: double.infinity,
                           fit: BoxFit.fill,
@@ -97,20 +99,6 @@ class _PageViewWidgetState extends State<PageViewWidget> {
                           errorWidget: (context, url, error) =>
                               const Icon(Icons.error),
                         ),
-                      ),
-                    if (film.posterPath == null)
-                      const Column(
-                        children: [
-                          SizedBox(height: 80),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.error),
-                              SizedBox(width: 5),
-                              Text('Image not available')
-                            ],
-                          ),
-                        ],
                       ),
                   ],
                 ),

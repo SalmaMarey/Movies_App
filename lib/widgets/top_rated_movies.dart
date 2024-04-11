@@ -56,47 +56,46 @@ class _TopRatedMoviesState extends State<TopRatedMovies> {
                 },
                 child: Column(
                   children: [
-                    Hero(
-                      tag: 'movie_${topMovies.id}',
-                      child: Padding(
-                        padding:
-                            const EdgeInsets.only(left: 3.0, top: 8, right: 8),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              if (topMovies.posterPath != null)
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(left: 3.0, top: 8, right: 8),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if (topMovies.posterPath != null)
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Hero(
+                                  tag: "movie_${topMovies.id}",
                                   child: CachedNetworkImage(
-                                    imageUrl:
-                                        getImagePath(topMovies.posterPath!),
+                                    imageUrl: (topMovies.posterPath != null)
+                                        ? getImagePath(topMovies.posterPath!)
+                                        : "https://cdn-icons-png.flaticon.com/512/15393/15393096.png",
                                     height: 200,
                                     width: 150,
                                     fit: BoxFit.fill,
-                                    placeholder: (context, url) => const Center(
-                                      child: CircularProgressIndicator(),
-                                    ),
+                                    placeholder: (context, url) => Center(
+                                        child: Image.asset('assets/5.png')),
                                     errorWidget: (context, url, error) =>
                                         const Icon(Icons.error),
                                   ),
                                 ),
-                              if (topMovies.posterPath == null)
-                                const Column(
-                                  children: [
-                                    SizedBox(height: 80),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(Icons.error),
-                                        SizedBox(width: 5),
-                                        Text('Image not available')
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                            ]),
-                      ),
+                              ),
+                            // if (topMovies.posterPath == null)
+                            //   const Column(
+                            //     children: [
+                            //       SizedBox(height: 80),
+                            //       Row(
+                            //         mainAxisAlignment: MainAxisAlignment.center,
+                            //         children: [
+                            //           Icon(Icons.error),
+                            //           SizedBox(width: 5),
+                            //           Text('Image not available')
+                            //         ],
+                            //       ),
+                            //     ],
+                            //   ),
+                          ]),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 3, top: 3),

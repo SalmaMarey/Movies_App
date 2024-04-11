@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../provider/actor_details.dart';
 
 class ActorDetails extends StatefulWidget {
-  final int creditId;
+  final String creditId;
 
   const ActorDetails(
       {Key? key, required this.creditId, required CastMovie actor})
@@ -24,70 +24,88 @@ class _ActorDetailsState extends State<ActorDetails> {
         .fetchActorDetails(widget.creditId);
   }
 
+  String getImagePath(String name) {
+    return 'http://image.tmdb.org/t/p/w500/$name';
+  }
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<void>(builder: (context, snapshot) {
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return const Center(child: CircularProgressIndicator());
-      } else if (snapshot.hasError) {
-        return Center(child: Text('Error: ${snapshot.error}'));
-      } else {
-        final movieDetails =
-            Provider.of<ActorDetailsProvider>(context).castDetails;
-        final genres = Provider.of<ActorDetailsProvider>(context).genres;
+    return Scaffold(
+      body: FutureBuilder(
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            final castDetails =
+                Provider.of<ActorDetailsProvider>(context).castDetails;
+            // final genres = Provider.of<ActorDetailsProvider>(context).genres;
 
-        return CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              backgroundColor: Colors.transparent,
-              expandedHeight: 390,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (movieDetails.profilePath != null)
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
+            return CustomScrollView(
+              slivers: [
+                if (castDetails.profilePath != null)
+                  SliverAppBar(
+                    backgroundColor: Colors.transparent,
+                    expandedHeight: 300,
+                    flexibleSpace: FlexibleSpaceBar(
+                      background: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          // bottomLeft: Radius.circular(20),
+                        ),
                         child: CachedNetworkImage(
-                          imageUrl:
-                              'https://image.tmdb.org/t/p/w500/${movieDetails.profilePath}',
-                          height: 200,
-                          width: 150,
+                          imageUrl: (castDetails.profilePath != null)
+                              ? getImagePath(castDetails.profilePath!)
+                              : "https://cdn-icons-png.flaticon.com/512/15393/15393096.png",
+                          height: 250,
+                          width: double.infinity,
                           fit: BoxFit.fill,
-                          placeholder: (context, url) =>
-                              const Center(child: CircularProgressIndicator()),
+                          placeholder: (context, url) => const Center(
+                            child: CircularProgressIndicator(),
+                          ),
                           errorWidget: (context, url, error) =>
                               const Icon(Icons.error),
                         ),
                       ),
-                    if (movieDetails.profilePath == null)
-                      const Column(
-                        children: [
-                          SizedBox(height: 80),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.error),
-                              SizedBox(width: 5),
-                              Text('No actor details available'),
-                            ],
-                          ),
-                        ],
-                      ),
-                    Text(
-                      movieDetails.name ?? 'Unknown',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
                     ),
-                  ],
+                  ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          castDetails.name ?? 'no',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        const Text(
+                          'Popularity',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
+                        Text(
+                          castDetails.popularity.toString(),
+                          style: const TextStyle(color: Colors.grey),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ],
-        );
-      }
-    });
+              ],
+            );
+          }
+        }, future: null,
+      ),
+    );
   }
 }

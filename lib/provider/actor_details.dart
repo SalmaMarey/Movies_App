@@ -10,11 +10,11 @@ import '../models/cast_model.dart';
 
 class ActorDetailsProvider extends ChangeNotifier {
   late CastMovie _castDetails = CastMovie();
-  late List<Map<String, dynamic>> _genres = [];
-  List<Map<String, dynamic>> get genres => _genres;
+  // late List<Map<String, dynamic>> _genres = [];
+  // List<Map<String, dynamic>> get genres => _genres;
   CastMovie get castDetails => _castDetails;
 
-  Future<void> fetchActorDetails(int creditId) async {
+  Future<void> fetchActorDetails(String creditId) async {
     try {
       final response = await http.get(
         Uri.parse('https://api.themoviedb.org/3/credit/$creditId'),
@@ -26,10 +26,10 @@ class ActorDetailsProvider extends ChangeNotifier {
       print(response.body);
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseBody = json.decode(response.body);
-        _castDetails = CastMovie.fromJson(responseBody);
-        final List<dynamic> genresData = responseBody['genres'] ?? [];
-        _genres =
-            genresData.map((genre) => genre as Map<String, dynamic>).toList();
+        _castDetails = CastMovie.fromJson(responseBody["person"]);
+        // final List<dynamic> genresData = responseBody['genres'] ?? [];
+        // _genres =
+        // genresData.map((genre) => genre as Map<String, dynamic>).toList();
         notifyListeners();
       }
     } catch (e) {

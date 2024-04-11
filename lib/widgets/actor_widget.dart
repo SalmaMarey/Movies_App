@@ -28,8 +28,9 @@ class _ActorWidgetState extends State<ActorWidget> {
         final movieCredits = movieCastProvider.cast;
 
         return SizedBox(
-          height: 250,
+          height: 800,
           child: GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 2.0,
@@ -46,8 +47,8 @@ class _ActorWidgetState extends State<ActorWidget> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            ActorDetails(creditId: actor.id ?? 0, actor: actor),
+                        builder: (context) => ActorDetails(
+                            creditId: actor.creditId ?? 'p', actor: actor),
                       ),
                     );
                   },

@@ -70,32 +70,17 @@ class _PopularMoviesState extends State<PopularMovies> {
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(15),
                                   child: CachedNetworkImage(
-                                    imageUrl:
-                                        getImagePath(topMovies.posterPath!),
+                                    imageUrl: (topMovies.posterPath != null)
+                                        ? getImagePath(topMovies.posterPath!)
+                                        : "https://cdn-icons-png.flaticon.com/512/15393/15393096.png",
                                     height: 200,
                                     width: 150,
                                     fit: BoxFit.fill,
-                                    placeholder: (context, url) => const Center(
-                                      child: CircularProgressIndicator(),
-                                    ),
+                                    placeholder: (context, url) => Center(
+                                        child: Image.asset('assets/5.png')),
                                     errorWidget: (context, url, error) =>
                                         const Icon(Icons.error),
                                   ),
-                                ),
-                              if (topMovies.posterPath == null)
-                                const Column(
-                                  children: [
-                                    SizedBox(height: 80),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(Icons.error),
-                                        SizedBox(width: 5),
-                                        Text('Image not available')
-                                      ],
-                                    ),
-                                  ],
                                 ),
                             ]),
                       ),

@@ -9,10 +9,10 @@ import 'package:http/http.dart' as http;
 import '../models/movies_model.dart';
 
 class PageViewDetailsProvider extends ChangeNotifier {
-  late Results _movieDetails = Results();
+  late Results? _movieDetails = Results();
   late List<Map<String, dynamic>> _genres = [];
   List<Map<String, dynamic>> get genres => _genres;
-  Results get movieDetails => _movieDetails;
+  Results? get movieDetails => _movieDetails;
 
   Future<void> fetchMovieDetails(int movieId) async {
     try {
@@ -40,5 +40,9 @@ class PageViewDetailsProvider extends ChangeNotifier {
       print('Error fetching movie details: $e');
       rethrow;
     }
+  }
+
+  clearMovie() {
+    _movieDetails = null;
   }
 }

@@ -31,7 +31,7 @@ class StackDetaills extends StatelessWidget {
         height: 400,
         child: Stack(
           children: [
-            if (movieDetails.posterPath != null)
+            if (movieDetails!.posterPath != null)
               ClipRRect(
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(20),
