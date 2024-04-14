@@ -66,36 +66,39 @@ class _PageViewDetsilsState extends State<PageViewDetsils> {
                     pinned: false,
                     backgroundColor: Colors.transparent,
                     expandedHeight: 250,
-                    flexibleSpace: FlexibleSpaceBar(
-                      background: Hero(
-                        tag: 'movie_${widget.movieId}',
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(20),
-                          ),
-                          child: CachedNetworkImage(
-                            imageUrl: (movieDetails.posterPath != null)
-                                ? getImagePath(movieDetails.posterPath!)
-                                : "https://cdn-icons-png.flaticon.com/512/15393/15393096.png",
-                            height: 350,
-                            width: double.infinity,
-                            fit: BoxFit.fill,
-                            placeholder: (context, url) => const Center(
-                              child: CircularProgressIndicator(),
+                    flexibleSpace: SizedBox(
+                      height: 350,
+                      child: FlexibleSpaceBar(
+                        background: Hero(
+                          tag: 'movie_${widget.movieId}',
+                          child: ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(20),
                             ),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
+                            child: CachedNetworkImage(
+                              imageUrl: (movieDetails.posterPath != null)
+                                  ? getImagePath(movieDetails.posterPath!)
+                                  : "https://cdn-icons-png.flaticon.com/512/15393/15393096.png",
+                              height: 350,
+                              width: double.infinity,
+                              fit: BoxFit.fill,
+                              placeholder: (context, url) => const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                            ),
                           ),
                         ),
                       ),
                     ),
                     bottom: PreferredSize(
-                      preferredSize: const Size(double.infinity, 250),
+                      preferredSize: const Size(double.infinity, 330),
                       child: Padding(
-                        padding: const EdgeInsets.only(bottom: 0),
+                        padding: const EdgeInsets.only(bottom: 20, left: 20),
                         child: Container(
                           width: 390,
-                          // height: 90,
+                          height: 90,
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(50),

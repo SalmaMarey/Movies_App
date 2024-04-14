@@ -51,8 +51,8 @@ class _ActorDetailsState extends State<ActorDetails> {
                     flexibleSpace: FlexibleSpaceBar(
                       background: ClipRRect(
                         borderRadius: const BorderRadius.only(
-                          // bottomLeft: Radius.circular(20),
-                        ),
+                            // bottomLeft: Radius.circular(20),
+                            ),
                         child: CachedNetworkImage(
                           imageUrl: (castDetails.profilePath != null)
                               ? getImagePath(castDetails.profilePath!)
@@ -79,24 +79,40 @@ class _ActorDetailsState extends State<ActorDetails> {
                           castDetails.name ?? 'no',
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                            fontSize: 30,
                           ),
                         ),
                         const SizedBox(
                           height: 5,
                         ),
-                        const Text(
-                          'Popularity',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18),
-                        ),
-                        Text(
-                          castDetails.popularity.toString(),
-                          style: const TextStyle(color: Colors.grey),
+                        Container(
+                          height: 150,
+                          width: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color: const Color.fromARGB(255, 61, 61, 61),
+                          ),
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 50,
+                              ),
+                              const Text(
+                                'Popularity',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 18),
+                              ),
+                              Text(
+                                castDetails.popularity.toString(),
+                                style: const TextStyle(color: Colors.grey),
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 50,
                         ),
+                        const Text('There is no other information')
                       ],
                     ),
                   ),
@@ -104,7 +120,8 @@ class _ActorDetailsState extends State<ActorDetails> {
               ],
             );
           }
-        }, future: null,
+        },
+        future: null,
       ),
     );
   }
